@@ -1,0 +1,132 @@
+# Transcript: v3_dashboard.wav
+# duration=591.0s lang=en
+
+[00:00:00 - 00:00:02] Hi, so currently we are on
+[00:00:04 - 00:00:06] seller analytics
+[00:00:07 - 00:00:11] Application or website we can say it's called by your and
+[00:00:13 - 00:00:21] We are on the on the dashboard right now. So basically this software is for tracking your
+[00:00:22 - 00:00:29] Profits tracking your loss on eBay if you have an eBay account and if you are dropshipping basically
+[00:00:30 - 00:00:35] So what this software gives you or website this gives you the track
+[00:00:37 - 00:00:41] of your losses and expenses and profits and
+[00:00:42 - 00:00:47] Even my new detail of refunds whatever refunds you have given to your buyer
+[00:00:47 - 00:00:53] Have you taken that refund back from your supplier or not?
+[00:00:54 - 00:00:59] So it it is very user friendly it gives you lots and lots of options to track
+[00:00:59 - 00:01:05] So basically what this software is doing is that it is it gets
+[00:01:06 - 00:01:14] Firstly you have to sign up and then you have to connect your store your eBay store store with
+[00:01:14 - 00:01:19] This software once and this is once once this is connected
+[00:01:19 - 00:01:21] what you get is it
+[00:01:22 - 00:01:24] refreshes every minute and
+[00:01:24 - 00:01:29] It updates whenever and whenever any order comes in into your account
+[00:01:29 - 00:01:37] It basically gives you that data and it gets refreshed every minute and you you can track everything
+[00:01:38 - 00:01:40] In real time
+[00:01:40 - 00:01:47] So you have this is a very useful dashboard. You've got some suggestions over here
+[00:01:48 - 00:01:51] Then we are currently we're on the dashboard. So
+[00:01:52 - 00:01:57] It gives you your profit at a glance this month and any window beside it
+[00:01:58 - 00:02:02] One quick choice which one should a refunds loss count in
+[00:02:02 - 00:02:10] This sets how your dashboard analytics and reports did refund losses pick whichever matches how you how you close your months
+[00:02:10 - 00:02:12] changeable later in settings
+[00:02:13 - 00:02:14] So
+[00:02:14 - 00:02:21] It says that you have two options right now. So first is that the month the refund arrives
+[00:02:21 - 00:02:28] Okay, so it gives all it also explains and also gives an example that a July sale
+[00:02:29 - 00:02:31] refunded in August
+[00:02:31 - 00:02:33] reduces August
+[00:02:33 - 00:02:38] Close months never change the way profit share and month and teams settle
+[00:02:40 - 00:02:42] so this
+[00:02:43 - 00:02:45] I mean
+[00:02:45 - 00:02:50] This is the first option. The second option is that the month of the original order
+[00:02:50 - 00:02:55] So a July sale refunded in August reduces July
+[00:02:55 - 00:03:00] Each month always shows what its orders truly earned in the end
+[00:03:01 - 00:03:03] So this I think what
+[00:03:03 - 00:03:05] The most of the people
+[00:03:06 - 00:03:10] Chooses is the first option. It's the but still he's got two
+[00:03:12 - 00:03:15] Two options ready and you can choose either. So
+[00:03:16 - 00:03:20] This is a very useful thing. So what this means is that
+[00:03:20 - 00:03:23] Um
+[00:03:23 - 00:03:27] Obviously at the end of every month a report is generated
+[00:03:27 - 00:03:30] Okay, and that is sent to the clients
+[00:03:30 - 00:03:38] So in that report what you do is that you calculate all your refunds that you have got from your supplier
+[00:03:39 - 00:03:45] You you then what you you calculate everything? Obviously you have given refunds to
+[00:03:46 - 00:03:47] Uh
+[00:03:47 - 00:03:48] to the buyers
+[00:03:48 - 00:03:52] For example, this month is august and you have given refunds to the buyers
+[00:03:53 - 00:03:56] That place their order in july for example
+[00:03:56 - 00:03:59] So in the month of august you have also refunded buyers
+[00:04:00 - 00:04:02] Who ordered from you?
+[00:04:03 - 00:04:05] Uh in the month of july
+[00:04:06 - 00:04:07] so
+[00:04:07 - 00:04:13] You are calculating that in august and similarly if you are getting any refund from aliexpress
+[00:04:13 - 00:04:20] For if let's say if aliexpress is your supplier if you are getting any refund from aliexpress right now
+[00:04:21 - 00:04:24] Uh, you are calculating that refund that you've got
+[00:04:25 - 00:04:28] You are calculating in your august sheets
+[00:04:29 - 00:04:33] So you are maintaining your refund that you've got in august
+[00:04:33 - 00:04:41] So this is the first option and most people choose this because they settle at the end of the month and they lock the sheets then
+[00:04:41 - 00:04:44] Whichever refund comes in for example
+[00:04:44 - 00:04:47] September they'll count everything in september
+[00:04:48 - 00:04:55] Rather either it is if it is also the refund of august or any order of august
+[00:04:56 - 00:05:00] The sheet is closed. They do not edit anything
+[00:05:01 - 00:05:04] What is already built or what is already done?
+[00:05:05 - 00:05:10] They adjust everything in the coming months then and this way their cycle keeps on going
+[00:05:10 - 00:05:12] So this is a very useful option
+[00:05:12 - 00:05:15] Then uh this have this month
+[00:05:15 - 00:05:21] First august to today. So this month's revenue. So gross sales including shipping
+[00:05:21 - 00:05:23] Then it has net profit
+[00:05:25 - 00:05:30] No price order so because we've we have not uh in we have not
+[00:05:32 - 00:05:36] Uh imported any log of costs
+[00:05:37 - 00:05:42] It's in minus right now. So basically it's it has an option to log your costs
+[00:05:43 - 00:05:45] In each order
+[00:05:45 - 00:05:48] So this is a very useful thing. They got a
+[00:05:49 - 00:05:51] This month's refunds 120.29
+[00:05:52 - 00:05:57] You can also view your refunds and then what you can do is over here you can
+[00:05:58 - 00:05:59] basically
+[00:05:59 - 00:06:01] uh
+[00:06:01 - 00:06:06] Go it'll give you all the tracking of your refund. So okay back to dashboard
+[00:06:06 - 00:06:12] This is a very useful option. This is better. There's also very useful over here. You can also view orders each and every orders over here
+[00:06:13 - 00:06:17] Profit margin you can calculate then last seven days. Also you can track
+[00:06:17 - 00:06:22] And compare from against this month only and there's also a custom option
+[00:06:23 - 00:06:27] And different options for choosing any month you can select it etc
+[00:06:29 - 00:06:30] then
+[00:06:30 - 00:06:32] It gives what's outstanding right now
+[00:06:33 - 00:06:36] So it also gives you that what you need you need to do
+[00:06:36 - 00:06:38] So it's this is also very
+[00:06:38 - 00:06:42] 175 awaiting buying price. So we need to price these
+[00:06:43 - 00:06:48] To get the net profit then this is the refund section very very important
+[00:06:48 - 00:06:52] The the refund that you are giving uh in on ebay
+[00:06:52 - 00:06:57] So for example, you have given 21 refunds that needs your answer your answer means
+[00:06:58 - 00:07:02] That we will talk later in the refunds tab too, but
+[00:07:03 - 00:07:05] You have to
+[00:07:06 - 00:07:14] You have to choose whether you have applied for the reef for your refund that you have obviously you've also bought from your supplier, right?
+[00:07:14 - 00:07:16] So you also have to
+[00:07:17 - 00:07:20] Apply for a refund. So this helps you track
+[00:07:21 - 00:07:25] Whether you have got the refund or not if you've got the refund it obviously
+[00:07:26 - 00:07:30] Calculates accordingly that okay, you've got if you haven't got the refund
+[00:07:31 - 00:07:34] You select no and it will count as a loss
+[00:07:35 - 00:07:39] So so you know that how much of loss has been generated this month
+[00:07:40 - 00:07:46] So this is a very useful and returns awaiting your action. So none none is open right now
+[00:07:47 - 00:07:53] Returns so these are returns. Okay. So there's currently I believe there's no return returns
+[00:07:53 - 00:07:57] Uh on ebay right now for this account, okay
+[00:07:57 - 00:07:59] Then supplier refunds are all settled
+[00:08:01 - 00:08:04] Um, okay
+[00:08:04 - 00:08:06] This is something I don't know right now
+[00:08:06 - 00:08:09] Then ebay account status
+[00:08:10 - 00:08:16] Right now late dispatch rate. This is very useful transaction defect rate very useful case closely without seller resolution
+[00:08:16 - 00:08:23] These are zero percent very useful all of this data is already available on ebay, but it
+[00:08:25 - 00:08:30] From I think from the api it fetched everything and we got everything over here
+[00:08:30 - 00:08:34] This is very useful. So that ebay account health is also
+[00:08:34 - 00:08:40] Uh displayed over here very useful dispatch and delivery. Okay 99 orders on time
+[00:08:41 - 00:08:43] 42 are awaiting dispatch very good
+[00:08:44 - 00:08:47] and
+[00:08:47 - 00:08:51] Dispatch late. This is also a very good option 15 cancellations
+[00:08:52 - 00:08:56] So 100% dispatch on time in the last seven days
+[00:08:56 - 00:08:58] So
+[00:08:58 - 00:09:03] This is also very very good. So all of this data is for last seven days. Okay
+[00:09:04 - 00:09:07] Then revenue and profit each day you get a nice
+[00:09:08 - 00:09:11] 18th august you got 91 pounds of revenue
+[00:09:12 - 00:09:13] 19 august you got
+[00:09:13 - 00:09:16] 100 pounds of revenue. So this is your
+[00:09:17 - 00:09:24] Last seven days data of revenue and profit. It also shows the profit currently obviously we have it logged in the costs
+[00:09:24 - 00:09:26] That's why we don't know that
+[00:09:28 - 00:09:32] The actual profit, but this is a very good option needs attention again
+[00:09:33 - 00:09:36] To remind you this is a very good option top products
+[00:09:36 - 00:09:40] No sales in this period. So you don't have any
+[00:09:40 - 00:09:43] Top products over here, but this is a very useful option
+[00:09:43 - 00:09:51] So that if you if you want to run a priority ad or something like that if you've got your top products over here that are actually

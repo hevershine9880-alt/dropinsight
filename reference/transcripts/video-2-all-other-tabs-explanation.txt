@@ -1,0 +1,112 @@
+# Transcript: v2_othertabs.wav
+# duration=525.5s lang=en
+
+[00:00:00 - 00:00:07] So the orders order section is also very important because so there are lots of
+[00:00:07 - 00:00:14] Important options that you can do. This is a spreadsheet mode. It's a very useful tool. You can see all of your orders
+[00:00:15 - 00:00:20] In the format of a spreadsheet, so you can also
+[00:00:21 - 00:00:28] See your supplier order number your supplier and then your supplier you're buying price basically and
+[00:00:29 - 00:00:32] So this also it's a good view
+[00:00:33 - 00:00:38] Similarly, you can also import costs from spreadsheets. This is a very very useful tool
+[00:00:38 - 00:00:46] So one very good thing about this is that every option also tells you what you can do and what is it for?
+[00:00:46 - 00:00:49] so for now you can
+[00:00:49 - 00:00:53] For hair it says that your sheet needs these two columns
+[00:00:53 - 00:00:55] Anything else is fine and gets ignored
+[00:00:56 - 00:01:03] So if you have a eBay order order number in your CSV a buying price and then supplier order number
+[00:01:03 - 00:01:06] It's optional, but still they are giving you option. So
+[00:01:07 - 00:01:13] Everything else will be ignored and they'll just pick this and they'll match the row
+[00:01:13 - 00:01:20] I think and they'll just match the eBay or order number and that row if it has a cost and
+[00:01:21 - 00:01:23] The supplier order number
+[00:01:23 - 00:01:25] So I think that this will get imported
+[00:01:26 - 00:01:34] Automatically and then you'll have all the costs of your paid orders or your orders that has come that have come on eBay
+[00:01:35 - 00:01:42] So you also have this toggle made a loss which orders have made a loss and because as because they are refunded
+[00:01:42 - 00:01:44] So currently they are I think they are
+[00:01:45 - 00:01:53] Countered as loss. This is a very important section. You can also custom select your date and stuff like that
+[00:01:54 - 00:01:59] Similarly, then you have refund and returns option. This is extremely important because
+[00:02:00 - 00:02:02] From here you can track your loss
+[00:02:03 - 00:02:05] so
+[00:02:05 - 00:02:08] What this means is that if you have
+[00:02:10 - 00:02:12] Refunded any buyer on eBay
+[00:02:12 - 00:02:17] So simply he asks the the software asks you that have you
+[00:02:18 - 00:02:26] Applied for a refund from your supplier or not because obviously if you have refunded the buyer on eBay
+[00:02:26 - 00:02:30] You have also purchased it from Ali Express, right? If Ali Express is your supplier
+[00:02:30 - 00:02:36] So you also have to take the refund from them. Have you taken the refund from there?
+[00:02:36 - 00:02:40] So this is a game changer thing and you can
+[00:02:41 - 00:02:47] Basically answer that question if you can answer either yes received either yes
+[00:02:48 - 00:02:50] Expecting it either partially
+[00:02:50 - 00:02:55] Received or no, so these you can select one of these four questions
+[00:02:55 - 00:02:59] And basically you can move forward if you click on expecting it
+[00:02:59 - 00:03:04] It will keep on following up basically so that you never forget and it gets income
+[00:03:04 - 00:03:08] It stays incomplete so that you have to either say yes or say no then
+[00:03:08 - 00:03:10] So this basically
+[00:03:11 - 00:03:18] Gives you a good track monthly and order wise too so that you can get a nice
+[00:03:19 - 00:03:23] Track of your orders. Similarly. It also have
+[00:03:24 - 00:03:28] Track of cancelled orders. So basically this also have
+[00:03:29 - 00:03:36] This can the the this software also have a feature that separates the cancelled orders that are actually
+[00:03:37 - 00:03:42] Orders that buyer asks to cancel and they are not really processed and
+[00:03:43 - 00:03:50] They are not basically processed from your supplier. So that is not a loss, but that is actually something
+[00:03:51 - 00:03:52] we can
+[00:03:52 - 00:03:59] Say that that order was cancelled on eBay and that order was also not processed from your side
+[00:04:00 - 00:04:05] So you haven't processed anything from Ali Express either. So that doesn't need a you know
+[00:04:06 - 00:04:13] A follow-up or I think something like that. That's also a very good thing. It takes that
+[00:04:14 - 00:04:16] Data and keeps them all separately
+[00:04:17 - 00:04:22] So this is a profit collection tab. This is also very important and very useful
+[00:04:22 - 00:04:28] basically what happens is that if there is any cost we have written and if there is
+[00:04:29 - 00:04:35] According to the eBay cap a calculation that order is in loss like below the break even
+[00:04:36 - 00:04:38] And it is not giving you any profit
+[00:04:38 - 00:04:43] It basically tells you that you are not getting any profit and then you can adjust your prices accordingly
+[00:04:44 - 00:04:48] so this is very useful tool and very useful options and
+[00:04:49 - 00:04:52] We can you know record our things over here
+[00:04:53 - 00:04:58] So we can update the status accordingly that supply supplier has promised it
+[00:04:59 - 00:05:04] And partial amount or not coming that means you won't get anything
+[00:05:05 - 00:05:12] So this is also very useful. Then you get products over here. You've got you can just automatically
+[00:05:13 - 00:05:19] This is automatically built from your orders at as it says cost history here powers the buying price suggestions
+[00:05:20 - 00:05:21] so
+[00:05:21 - 00:05:23] according to the
+[00:05:24 - 00:05:30] It also says it also suggests prices basically that's also a useful tool then
+[00:05:31 - 00:05:32] uh
+[00:05:32 - 00:05:34] You've got suppliers if you've got anything over here
+[00:05:35 - 00:05:37] and then
+[00:05:37 - 00:05:41] Expenses you can also track. So basically right now over here. It has automatically
+[00:05:43 - 00:05:45] Fetched the
+[00:05:45 - 00:05:47] eBay expense. This is I think the shop fees
+[00:05:48 - 00:05:52] So if you for example, if you have taken any subscription like auto ds or something like that
+[00:05:52 - 00:05:55] You can just put it over here and calculate it in your
+[00:05:56 - 00:05:59] You know expense and that is also a very useful tool
+[00:06:00 - 00:06:03] and
+[00:06:03 - 00:06:06] Good option over here. You can also copy last month's recurring
+[00:06:08 - 00:06:10] Expenses
+[00:06:10 - 00:06:12] Then you have a very useful tool again analytics
+[00:06:12 - 00:06:16] You can again select today last seven days 14 days or custom
+[00:06:17 - 00:06:19] Anything like that. And then also we've got
+[00:06:21 - 00:06:24] Different trends like profit revenue refunds returns
+[00:06:25 - 00:06:32] You can track and I let analytics most profitable product least profitable product no sales in this period
+[00:06:33 - 00:06:35] and for example
+[00:06:35 - 00:06:39] If I choose in this month, so least sales will be over here
+[00:06:39 - 00:06:44] So we we can track then supplier comparison. You can also
+[00:06:44 - 00:06:46] Supply lots of good options
+[00:06:46 - 00:06:49] Then reports. This is very very very important
+[00:06:50 - 00:06:55] Monthly profit and loss statement is really important to know that what actually your profit is
+[00:06:55 - 00:07:02] And what are your expenses? Very nice. We get a nice pdf format of all of these things
+[00:07:03 - 00:07:05] This is also very important and very nice thing
+[00:07:06 - 00:07:08] Similarly, you've got insights
+[00:07:09 - 00:07:16] You can automatically it gives you insights for example declining margins rising supplier costs or refund prone products
+[00:07:17 - 00:07:19] very important and
+[00:07:20 - 00:07:22] Similarly, this is a support
+[00:07:22 - 00:07:25] where you can open a ticket and
+[00:07:26 - 00:07:33] You can ask any questions if you need. So this is basically an additional service. They are giving
+[00:07:33 - 00:07:36] Very nice things. Also, you come in
+[00:07:37 - 00:07:42] If you come in settings, they're they're very good options over here. You can see
+[00:07:43 - 00:07:45] Similarly, uh
+[00:07:45 - 00:07:47] You can give access to your teammates
+[00:07:48 - 00:07:50] Etc. Select a role
+[00:07:51 - 00:07:53] and
+[00:07:53 - 00:07:59] What what each role can do it all it has pre-loaded abilities basically
+[00:08:00 - 00:08:02] And each role can do different things
+[00:08:03 - 00:08:07] tick and there's a dash that means they cannot do these things
+[00:08:08 - 00:08:10] and
+[00:08:10 - 00:08:12] Connections so basically it's syncing
+[00:08:13 - 00:08:15] You can also sync now again
+[00:08:15 - 00:08:22] You can import history can delete your account. I think I guess or we delete your ebay that is connected
+[00:08:23 - 00:08:27] And this is just a one-day trial right now. You can upgrade your plan
+[00:08:28 - 00:08:31] there's billing and
+[00:08:34 - 00:08:40] Good interface very good things and very useful things that can be made properly

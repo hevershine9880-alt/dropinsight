@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dropinsight",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": [
+        "-lc",
+        "export PATH=\"/Users/huzaifa/.local/node/bin:$PATH\" && exec npm run dev"
+      ],
+      "port": 3000,
+      "autoPort": false
+    }
+  ]
+}

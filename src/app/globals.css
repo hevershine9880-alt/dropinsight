@@ -1,0 +1,484 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   DropInsight design system
+   ---------------------------------------------------------------------------
+   Three layers, in the order Tailwind resolves them:
+
+     1. Primitives  — the raw ramps. Never referenced by a component.
+     2. Semantics   — what a colour is *for*. Every component uses only these.
+     3. Components  — the handful of composites worth naming.
+
+   The semantic layer is redefined once for dark mode. Because components never
+   reach past it, dark mode is a palette swap rather than a second stylesheet.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* -- type ------------------------------------------------------------- */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+
+  /* A 1.2-ish scale. Financial UI lives at the small end, so the small sizes
+     get more resolution than the display sizes do. */
+  --text-2xs: 0.6875rem;   /* 11px — table meta, badge text */
+  --text-2xs--line-height: 1rem;
+  --text-xs: 0.75rem;      /* 12px — column headers, captions */
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.8125rem;    /* 13px — table body, dense UI */
+  --text-sm--line-height: 1.25rem;
+  --text-base: 0.875rem;   /* 14px — the app's body size */
+  --text-base--line-height: 1.375rem;
+  --text-md: 0.9375rem;    /* 15px — prose, form values */
+  --text-md--line-height: 1.5rem;
+  --text-lg: 1.0625rem;    /* 17px — card titles */
+  --text-lg--line-height: 1.5rem;
+  --text-xl: 1.25rem;      /* 20px — section headings */
+  --text-xl--line-height: 1.625rem;
+  --text-2xl: 1.5rem;      /* 24px — KPI values */
+  --text-2xl--line-height: 1.875rem;
+  --text-3xl: 1.875rem;    /* 30px — page titles, hero KPIs */
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl: 2.375rem;    /* 38px — marketing */
+  --text-4xl--line-height: 2.75rem;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 3.25rem;
+
+  /* -- radius ----------------------------------------------------------- */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+
+  /* -- primitives ------------------------------------------------------- */
+  --color-navy-50: #f4f6fb;
+  --color-navy-100: #e7ebf5;
+  --color-navy-200: #cbd4e8;
+  --color-navy-300: #9dadd2;
+  --color-navy-400: #6980b6;
+  --color-navy-500: #48619c;
+  --color-navy-600: #384c81;
+  --color-navy-700: #2e3e69;
+  --color-navy-800: #1c2540;
+  --color-navy-900: #141b30;
+  --color-navy-950: #0b0f1d;
+
+  --color-indigo-50: #eef1ff;
+  --color-indigo-100: #e0e5ff;
+  --color-indigo-200: #c6ceff;
+  --color-indigo-300: #a3adff;
+  --color-indigo-400: #8083fc;
+  --color-indigo-500: #675ef4;
+  --color-indigo-600: #573de8;
+  --color-indigo-700: #4a2fcd;
+  --color-indigo-800: #3d29a5;
+  --color-indigo-900: #342a83;
+  --color-indigo-950: #201a4c;
+
+  --color-mint-50: #ecfdf4;
+  --color-mint-100: #d1fae3;
+  --color-mint-200: #a7f3cc;
+  --color-mint-300: #6ee7b0;
+  --color-mint-400: #34d391;
+  --color-mint-500: #10b978;
+  --color-mint-600: #059662;
+  --color-mint-700: #047851;
+  --color-mint-800: #065f42;
+  --color-mint-900: #064e37;
+
+  --color-rose-50: #fff1f2;
+  --color-rose-100: #ffe4e6;
+  --color-rose-200: #fecdd3;
+  --color-rose-300: #fda4af;
+  --color-rose-400: #fb7185;
+  --color-rose-500: #f43f5e;
+  --color-rose-600: #e11d48;
+  --color-rose-700: #be123c;
+  --color-rose-800: #9f1239;
+  --color-rose-900: #881337;
+
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
+
+  --color-slate-25: #fcfcfd;
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+
+  /* -- motion ----------------------------------------------------------- */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Semantic layer — light
+--------------------------------------------------------------------------- */
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-hover: var(--surface-hover);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-ink-inverse: var(--ink-inverse);
+
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
+
+  --color-positive: var(--positive);
+  --color-positive-soft: var(--positive-soft);
+  --color-positive-ink: var(--positive-ink);
+
+  --color-negative: var(--negative);
+  --color-negative-soft: var(--negative-soft);
+  --color-negative-ink: var(--negative-ink);
+
+  --color-caution: var(--caution);
+  --color-caution-soft: var(--caution-soft);
+  --color-caution-ink: var(--caution-ink);
+
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-info-ink: var(--info-ink);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-hover: var(--sidebar-hover);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-ink: var(--sidebar-ink);
+  --color-sidebar-ink-muted: var(--sidebar-ink-muted);
+  --color-sidebar-line: var(--sidebar-line);
+
+  --color-focus: var(--focus);
+}
+
+:root {
+  --canvas: var(--color-slate-50);
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-sunken: var(--color-slate-100);
+  --surface-hover: var(--color-slate-50);
+
+  --line: var(--color-slate-200);
+  --line-strong: var(--color-slate-300);
+
+  --ink: var(--color-navy-900);
+  --ink-muted: var(--color-slate-500);
+  --ink-subtle: var(--color-slate-400);
+  --ink-inverse: #ffffff;
+
+  --brand: var(--color-indigo-600);
+  --brand-hover: var(--color-indigo-700);
+  --brand-soft: var(--color-indigo-50);
+  --brand-ink: var(--color-indigo-700);
+
+  --positive: var(--color-mint-600);
+  --positive-soft: var(--color-mint-50);
+  --positive-ink: var(--color-mint-700);
+
+  --negative: var(--color-rose-600);
+  --negative-soft: var(--color-rose-50);
+  --negative-ink: var(--color-rose-700);
+
+  --caution: var(--color-amber-500);
+  --caution-soft: var(--color-amber-50);
+  --caution-ink: var(--color-amber-700);
+
+  --info: var(--color-navy-500);
+  --info-soft: var(--color-navy-50);
+  --info-ink: var(--color-navy-700);
+
+  --sidebar: var(--color-navy-900);
+  --sidebar-hover: rgb(255 255 255 / 0.07);
+  --sidebar-active: var(--color-indigo-600);
+  --sidebar-ink: #ffffff;
+  --sidebar-ink-muted: var(--color-navy-300);
+  --sidebar-line: rgb(255 255 255 / 0.09);
+
+  --focus: var(--color-indigo-500);
+
+  --shadow-card: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 1px 3px 0 rgb(15 23 42 / 0.06);
+  --shadow-raised: 0 4px 6px -2px rgb(15 23 42 / 0.05), 0 12px 20px -4px rgb(15 23 42 / 0.10);
+  --shadow-overlay: 0 8px 12px -4px rgb(15 23 42 / 0.08), 0 24px 48px -12px rgb(15 23 42 / 0.22);
+
+  color-scheme: light;
+}
+
+/* ---------------------------------------------------------------------------
+   Semantic layer — dark
+--------------------------------------------------------------------------- */
+
+.dark {
+  --canvas: var(--color-navy-950);
+  --surface: var(--color-navy-900);
+  --surface-raised: #171f36;
+  --surface-sunken: #0e1426;
+  --surface-hover: rgb(255 255 255 / 0.04);
+
+  --line: rgb(255 255 255 / 0.09);
+  --line-strong: rgb(255 255 255 / 0.16);
+
+  --ink: #f1f4fb;
+  --ink-muted: var(--color-navy-300);
+  --ink-subtle: var(--color-navy-400);
+  --ink-inverse: var(--color-navy-950);
+
+  --brand: var(--color-indigo-400);
+  --brand-hover: var(--color-indigo-300);
+  --brand-soft: rgb(103 94 244 / 0.16);
+  --brand-ink: var(--color-indigo-300);
+
+  --positive: var(--color-mint-400);
+  --positive-soft: rgb(52 211 145 / 0.14);
+  --positive-ink: var(--color-mint-300);
+
+  --negative: var(--color-rose-400);
+  --negative-soft: rgb(251 113 133 / 0.14);
+  --negative-ink: var(--color-rose-300);
+
+  --caution: var(--color-amber-400);
+  --caution-soft: rgb(251 191 36 / 0.14);
+  --caution-ink: var(--color-amber-300);
+
+  --info: var(--color-navy-300);
+  --info-soft: rgb(157 173 210 / 0.12);
+  --info-ink: var(--color-navy-200);
+
+  --sidebar: #0a0e1a;
+  --sidebar-hover: rgb(255 255 255 / 0.06);
+  --sidebar-active: var(--color-indigo-600);
+  --sidebar-ink: #f1f4fb;
+  --sidebar-ink-muted: var(--color-navy-400);
+  --sidebar-line: rgb(255 255 255 / 0.07);
+
+  --focus: var(--color-indigo-400);
+
+  --shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-raised: 0 4px 6px -2px rgb(0 0 0 / 0.3), 0 12px 20px -4px rgb(0 0 0 / 0.4);
+  --shadow-overlay: 0 8px 12px -4px rgb(0 0 0 / 0.4), 0 24px 48px -12px rgb(0 0 0 / 0.6);
+
+  color-scheme: dark;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html,
+  body {
+    -webkit-text-size-adjust: 100%;
+
+    /* The page never scrolls sideways. Wide tables and chip rows each scroll
+       inside their own container; without this the viewport still reports
+       their overflow as scrollable root overflow and drags the layout with it.
+       `clip` rather than `hidden` because `hidden` would make the root a
+       scroll container and break the sticky header. */
+    overflow-x: clip;
+  }
+
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Financial figures line up column to column only when the digits do. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  h1, h2, h3, h4 {
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    font-weight: 600;
+  }
+
+  /* One focus treatment everywhere, visible on every surface in both themes. */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background: var(--brand-soft);
+    color: var(--brand-ink);
+  }
+
+  ::placeholder {
+    color: var(--ink-subtle);
+  }
+
+  /* Scrollbars that do not shout on either theme. */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { background-color: var(--ink-subtle); background-clip: content-box; }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion — every animation here is opt-out
+--------------------------------------------------------------------------- */
+
+@keyframes di-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes di-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes di-scale-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes di-slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: none; }
+}
+@keyframes di-shimmer {
+  100% { transform: translateX(100%); }
+}
+@keyframes di-spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in { animation: di-fade-in 180ms var(--ease-out-soft) both; }
+.animate-rise { animation: di-rise 240ms var(--ease-out-soft) both; }
+.animate-scale-in { animation: di-scale-in 160ms var(--ease-out-soft) both; }
+.animate-slide-in-right { animation: di-slide-in-right 260ms var(--ease-out-soft) both; }
+.animate-spin-slow { animation: di-spin 900ms linear infinite; }
+
+/* Skeletons: a moving highlight rather than a pulsing block, so a loading
+   table does not strobe. */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-sunken);
+  border-radius: var(--radius-sm);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.45), transparent);
+  animation: di-shimmer 1.6s infinite;
+}
+.dark .skeleton::after {
+  background-image: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.06), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .skeleton::after { animation: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Composites
+--------------------------------------------------------------------------- */
+
+/* Sticky table headers need an opaque background or rows show through. */
+.table-sticky-head th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+}
+
+/**
+ * Horizontal scroller for a wide table.
+ *
+ * `overflow-x: auto` alone is not enough: a table with a `min-width` still
+ * contributes its full width to the root scrollable area in Blink, so the whole
+ * page ends up scrollable sideways even though the table visibly clips.
+ * `contain: paint` cuts that contribution off at the container.
+ */
+.table-scroll {
+  overflow-x: auto;
+  contain: paint;
+}
+
+/* Fades the bottom of a vertically scrolling region, so a nav that runs past
+   the fold reads as "more below" rather than as a clipped list. */
+.scroll-fade-y {
+  mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 1.5rem), transparent 100%);
+}
+
+/* Fades the right edge of a horizontally scrolling table so the cut-off is
+   read as "more to the right" rather than as a rendering bug. */
+.scroll-fade-x {
+  mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 2rem), transparent 100%);
+}
+@media (min-width: 1280px) {
+  .scroll-fade-x { mask-image: none; }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
+
+/* Used on the auth split screen. */
+.aurora {
+  background-image:
+    radial-gradient(60rem 40rem at 8% -10%, var(--color-indigo-100) 0%, transparent 55%),
+    radial-gradient(50rem 36rem at 96% 4%, var(--color-mint-100) 0%, transparent 50%),
+    radial-gradient(46rem 40rem at 40% 110%, var(--color-indigo-200) 0%, transparent 55%);
+}
+.dark .aurora {
+  background-image:
+    radial-gradient(60rem 40rem at 8% -10%, rgb(87 61 232 / 0.24) 0%, transparent 55%),
+    radial-gradient(50rem 36rem at 96% 4%, rgb(16 185 120 / 0.14) 0%, transparent 50%),
+    radial-gradient(46rem 40rem at 40% 110%, rgb(87 61 232 / 0.18) 0%, transparent 55%);
+}

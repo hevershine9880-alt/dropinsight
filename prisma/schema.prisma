@@ -1,0 +1,590 @@
+// DropInsight — data model
+//
+// Money: every monetary column is an Int of MINOR units (pence/cents) and is never a float.
+// Currency is recorded next to the amount that owns it. See src/lib/money.ts.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Identity
+// ---------------------------------------------------------------------------
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  avatarColor  String   @default("indigo")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sessions       Session[]
+  memberships    Membership[]
+  resetTokens    PasswordResetToken[]
+  auditLogs      AuditLog[]
+  costEntries    CostEntry[]
+  ticketMessages SupportMessage[]
+  savedViews     SavedView[]
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  userAgent String?
+  ipAddress String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ---------------------------------------------------------------------------
+// Workspace & access
+// ---------------------------------------------------------------------------
+
+/// How a refund's loss is dated in dashboards, analytics and reports.
+/// REFUND_MONTH  — the month the refund arrived (closed months never change)
+/// ORDER_MONTH   — the month of the original order (each month shows what it truly earned)
+model Workspace {
+  id                String   @id @default(cuid())
+  name              String
+  currency          String   @default("GBP")
+  refundAttribution String   @default("REFUND_MONTH")
+  onboardingStep    String   @default("CONNECT")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  memberships     Membership[]
+  invitations     Invitation[]
+  subscription    Subscription?
+  ebayAccounts    EbayAccount[]
+  orders          Order[]
+  products        Product[]
+  suppliers       Supplier[]
+  expenses        Expense[]
+  notifications   Notification[]
+  automationRules AutomationRule[]
+  syncJobs        SyncJob[]
+  auditLogs       AuditLog[]
+  insights        Insight[]
+  tickets         SupportTicket[]
+  savedViews      SavedView[]
+  referral        Referral?
+}
+
+/// OWNER | MANAGER | VA | ACCOUNTANT | READ_ONLY — see src/lib/auth/permissions.ts
+model Membership {
+  id          String   @id @default(cuid())
+  userId      String
+  workspaceId String
+  role        String
+  createdAt   DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workspaceId])
+  @@index([workspaceId])
+}
+
+model Invitation {
+  id          String    @id @default(cuid())
+  workspaceId String
+  email       String
+  role        String
+  tokenHash   String    @unique
+  invitedById String
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+  createdAt   DateTime  @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, email])
+  @@index([workspaceId])
+}
+
+// ---------------------------------------------------------------------------
+// Billing
+// ---------------------------------------------------------------------------
+
+/// plan: TRIAL | SOLO | MULTI | CUSTOM   status: TRIALING | ACTIVE | PAST_DUE | CANCELED
+model Subscription {
+  id                 String    @id @default(cuid())
+  workspaceId        String    @unique
+  plan               String    @default("TRIAL")
+  status             String    @default("TRIALING")
+  interval           String    @default("MONTHLY")
+  trialEndsAt        DateTime?
+  currentPeriodEnd   DateTime?
+  cancelAtPeriodEnd  Boolean   @default(false)
+  accountLimitAtBuy  Int       @default(1)
+  externalCustomerId String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model Referral {
+  id           String   @id @default(cuid())
+  workspaceId  String   @unique
+  code         String   @unique
+  referredById String?
+  rewardMinor  Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------------------------------
+// eBay connection
+// ---------------------------------------------------------------------------
+
+/// status: CONNECTED | TOKEN_EXPIRED | REVOKED | DISCONNECTED | ERROR
+model EbayAccount {
+  id            String    @id @default(cuid())
+  workspaceId   String
+  ebayUserId    String
+  username      String
+  marketplaceId String    @default("EBAY_GB")
+  currency      String    @default("GBP")
+  status        String    @default("CONNECTED")
+  statusDetail  String?
+  connectedAt   DateTime  @default(now())
+  lastSyncAt    DateTime?
+  historyFrom   DateTime?
+  isMock        Boolean   @default(false)
+
+  // Seller performance, refreshed from eBay
+  sellerLevel                String?
+  lateDispatchRate           Float?
+  transactionDefectRate      Float?
+  casesClosedWithoutSellerResolutionRate Float?
+  healthEvaluatedAt          DateTime?
+  healthNextEvaluationAt     DateTime?
+
+  workspace   Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  credential  OAuthCredential?
+  orders      Order[]
+  syncJobs    SyncJob[]
+  expenses    Expense[]
+
+  @@unique([workspaceId, ebayUserId])
+  @@index([workspaceId])
+}
+
+/// Tokens are encrypted at rest with AES-256-GCM (src/lib/crypto.ts) and never leave the server.
+model OAuthCredential {
+  id                    String   @id @default(cuid())
+  ebayAccountId         String   @unique
+  accessTokenEncrypted  String
+  refreshTokenEncrypted String
+  accessTokenExpiresAt  DateTime
+  refreshTokenExpiresAt DateTime
+  scopes                String
+  updatedAt             DateTime @updatedAt
+
+  ebayAccount EbayAccount @relation(fields: [ebayAccountId], references: [id], onDelete: Cascade)
+}
+
+/// type: FULL | INCREMENTAL | HISTORY   status: QUEUED | RUNNING | SUCCESS | PARTIAL | FAILED
+model SyncJob {
+  id             String    @id @default(cuid())
+  workspaceId    String
+  ebayAccountId  String
+  type           String
+  status         String    @default("QUEUED")
+  cursor         String?
+  windowFrom     DateTime?
+  windowTo       DateTime?
+  ordersImported Int       @default(0)
+  ordersUpdated  Int       @default(0)
+  refundsImported Int      @default(0)
+  attempts       Int       @default(0)
+  error          String?
+  queuedAt       DateTime  @default(now())
+  startedAt      DateTime?
+  finishedAt     DateTime?
+
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  ebayAccount EbayAccount @relation(fields: [ebayAccountId], references: [id], onDelete: Cascade)
+  logs        SyncLog[]
+
+  @@index([workspaceId, status])
+  @@index([ebayAccountId, queuedAt])
+}
+
+model SyncLog {
+  id        String   @id @default(cuid())
+  syncJobId String
+  level     String   @default("INFO")
+  message   String
+  detail    String?
+  createdAt DateTime @default(now())
+
+  syncJob SyncJob @relation(fields: [syncJobId], references: [id], onDelete: Cascade)
+
+  @@index([syncJobId])
+}
+
+// ---------------------------------------------------------------------------
+// Commerce
+// ---------------------------------------------------------------------------
+
+/// fulfillment: AWAITING_DISPATCH | DISPATCHED | IN_TRANSIT | DELIVERED
+/// payment:     PAID | UNPAID | REFUNDED | PARTIALLY_REFUNDED
+/// cancelState: NONE | CANCELLED_BEFORE_FULFILMENT | CANCELLED_AFTER_FULFILMENT
+model Order {
+  id            String   @id @default(cuid())
+  workspaceId   String
+  ebayAccountId String
+  ebayOrderId   String
+  legacyOrderId String?
+  orderDate     DateTime
+  currency      String
+
+  buyerUsername String
+  buyerName     String?
+  buyerFeedback Float?
+  shipToCity    String?
+  shipToCountry String?
+
+  itemSubtotalMinor  Int @default(0)
+  shippingChargedMinor Int @default(0)
+  taxMinor           Int @default(0)
+  totalMinor         Int @default(0)
+  ebayFeesMinor      Int @default(0)
+  adFeesMinor        Int @default(0)
+
+  fulfillmentStatus String    @default("AWAITING_DISPATCH")
+  paymentStatus     String    @default("PAID")
+  cancelState       String    @default("NONE")
+  dispatchDeadline  DateTime?
+  dispatchedAt      DateTime?
+  deliveredAt       DateTime?
+  trackingNumber    String?
+  carrier           String?
+
+  notes        String?
+  lastSyncedAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  ebayAccount EbayAccount @relation(fields: [ebayAccountId], references: [id], onDelete: Cascade)
+  items       OrderItem[]
+  refunds     Refund[]
+
+  @@unique([ebayAccountId, ebayOrderId])
+  @@index([workspaceId, orderDate])
+  @@index([workspaceId, fulfillmentStatus])
+  @@index([workspaceId, cancelState])
+  @@index([buyerUsername])
+}
+
+model OrderItem {
+  id             String @id @default(cuid())
+  orderId        String
+  productId      String?
+  ebayLineItemId String
+  ebayItemId     String?
+  sku            String?
+  title          String
+  imageUrl       String?
+  quantity       Int    @default(1)
+  unitPriceMinor Int    @default(0)
+  lineFeesMinor  Int    @default(0)
+
+  order   Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product?   @relation(fields: [productId], references: [id])
+  costs   CostEntry[]
+
+  @@unique([orderId, ebayLineItemId])
+  @@index([productId])
+}
+
+/// The single cost ledger. Every route that records a buying price writes here —
+/// inline edit, spreadsheet mode and CSV import alike. The newest entry wins.
+/// source: MANUAL | SPREADSHEET | CSV_IMPORT
+model CostEntry {
+  id                  String   @id @default(cuid())
+  orderItemId         String
+  unitCostMinor       Int
+  currency            String
+  supplierId          String?
+  supplierOrderNumber String?
+  source              String   @default("MANUAL")
+  createdByUserId     String?
+  createdAt           DateTime @default(now())
+
+  orderItem OrderItem @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+  supplier  Supplier? @relation(fields: [supplierId], references: [id])
+  createdBy User?     @relation(fields: [createdByUserId], references: [id])
+
+  @@index([orderItemId, createdAt])
+  @@index([supplierId])
+}
+
+/// Built automatically from order lines. Cost history powers buying-price suggestions.
+model Product {
+  id          String   @id @default(cuid())
+  workspaceId String
+  sku         String?
+  ebayItemId  String?
+  title       String
+  imageUrl    String?
+  stockOnHand Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workspace Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  items     OrderItem[]
+
+  @@unique([workspaceId, title])
+  @@index([workspaceId, sku])
+}
+
+model Supplier {
+  id          String   @id @default(cuid())
+  workspaceId String
+  name        String
+  website     String?
+  contactName String?
+  contactEmail String?
+  notes       String?
+  status      String   @default("ACTIVE")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workspace Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  costs     CostEntry[]
+  refunds   Refund[]
+
+  @@unique([workspaceId, name])
+}
+
+/// type:   REFUND | RETURN | CANCELLATION
+/// supplierClaim: NOT_ASKED | ASKED | PROMISED | RECEIVED | PARTIAL | WRITTEN_OFF | NOT_APPLICABLE
+model Refund {
+  id              String    @id @default(cuid())
+  orderId         String
+  ebayRefundId    String?
+  type            String    @default("REFUND")
+  refundedAt      DateTime
+  buyerRefundMinor Int      @default(0)
+  feeCreditMinor  Int       @default(0)
+  currency        String
+  reason          String?
+  returnState     String?
+
+  supplierClaim       String    @default("NOT_ASKED")
+  supplierId          String?
+  recoveredMinor      Int       @default(0)
+  supplierAnsweredAt  DateTime?
+  promisedByDate      DateTime?
+  notes               String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  order    Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  supplier Supplier? @relation(fields: [supplierId], references: [id])
+
+  @@unique([orderId, ebayRefundId])
+  @@index([orderId])
+  @@index([refundedAt])
+  @@index([supplierClaim])
+}
+
+/// source: MANUAL | EBAY  — eBay-sourced rows are read-only in the UI.
+model Expense {
+  id            String   @id @default(cuid())
+  workspaceId   String
+  ebayAccountId String?
+  date          DateTime
+  category      String
+  description   String
+  amountMinor   Int
+  currency      String
+  recurring     Boolean  @default(false)
+  source        String   @default("MANUAL")
+  externalRef   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  workspace   Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  ebayAccount EbayAccount? @relation(fields: [ebayAccountId], references: [id])
+
+  @@unique([workspaceId, externalRef])
+  @@index([workspaceId, date])
+}
+
+// ---------------------------------------------------------------------------
+// Attention, automation, audit
+// ---------------------------------------------------------------------------
+
+/// severity: INFO | WARNING | CRITICAL
+model Notification {
+  id          String    @id @default(cuid())
+  workspaceId String
+  type        String
+  severity    String    @default("INFO")
+  title       String
+  body        String
+  entityType  String?
+  entityId    String?
+  actionLabel String?
+  actionHref  String?
+  readAt      DateTime?
+  dedupeKey   String?
+  createdAt   DateTime  @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, dedupeKey])
+  @@index([workspaceId, readAt])
+}
+
+model AutomationRule {
+  id          String    @id @default(cuid())
+  workspaceId String
+  name        String
+  description String?
+  enabled     Boolean   @default(true)
+  trigger     String
+  conditions  String    @default("[]")
+  actions     String    @default("[]")
+  lastRunAt   DateTime?
+  runCount    Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  workspace Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  runs      AutomationRun[]
+
+  @@index([workspaceId])
+}
+
+/// status: SUCCESS | SKIPPED | FAILED
+model AutomationRun {
+  id         String   @id @default(cuid())
+  ruleId     String
+  status     String
+  message    String
+  entityType String?
+  entityId   String?
+  createdAt  DateTime @default(now())
+
+  rule AutomationRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  @@index([ruleId, createdAt])
+}
+
+/// kind: DECLINING_MARGIN | RISING_SUPPLIER_COST | REFUND_PRONE | BELOW_BREAK_EVEN | UNPRICED_BACKLOG | STALE_CHASE
+model Insight {
+  id          String    @id @default(cuid())
+  workspaceId String
+  kind        String
+  severity    String    @default("INFO")
+  title       String
+  body        String
+  entityType  String?
+  entityId    String?
+  actionHref  String?
+  dedupeKey   String
+  dismissedAt DateTime?
+  generatedAt DateTime  @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, dedupeKey])
+  @@index([workspaceId, dismissedAt])
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  workspaceId String
+  actorUserId String?
+  action      String
+  entityType  String?
+  entityId    String?
+  summary     String
+  metadata    String?
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  actor     User?     @relation(fields: [actorUserId], references: [id])
+
+  @@index([workspaceId, createdAt])
+}
+
+model SavedView {
+  id          String   @id @default(cuid())
+  workspaceId String
+  userId      String
+  page        String
+  name        String
+  query       String
+  createdAt   DateTime @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId, page, name])
+  @@index([workspaceId, page])
+}
+
+/// status: OPEN | ANSWERED | CLOSED
+model SupportTicket {
+  id          String   @id @default(cuid())
+  workspaceId String
+  subject     String
+  status      String   @default("OPEN")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workspace Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  messages  SupportMessage[]
+
+  @@index([workspaceId, status])
+}
+
+model SupportMessage {
+  id        String   @id @default(cuid())
+  ticketId  String
+  authorId  String?
+  fromStaff Boolean  @default(false)
+  body      String
+  createdAt DateTime @default(now())
+
+  ticket SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  author User?         @relation(fields: [authorId], references: [id])
+
+  @@index([ticketId])
+}
